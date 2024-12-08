@@ -1,0 +1,3 @@
+C:/Users/ILIA/Documents/лабы по аисд/laba22/build/CMakeFiles/MyExecutable.dir
+C:/Users/ILIA/Documents/лабы по аисд/laba22/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/ILIA/Documents/лабы по аисд/laba22/build/CMakeFiles/ZERO_CHECK.dir

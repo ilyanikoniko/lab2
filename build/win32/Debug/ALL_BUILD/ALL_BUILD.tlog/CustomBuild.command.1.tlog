@@ -1,0 +1,10 @@
+^C:\USERS\ILIA\DOCUMENTS\ЛАБЫ ПО АИСД\LABA22\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/Users/ILIA/Documents/лабы по аисд/laba22" "-BC:/Users/ILIA/Documents/лабы по аисд/laba22/build" --check-stamp-file "C:/Users/ILIA/Documents/лабы по аисд/laba22/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
