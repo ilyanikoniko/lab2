@@ -25,31 +25,21 @@ class LinkedList {
     int size;
 public:
  LinkedList(): head(nullptr), tail(nullptr), size(0) {}
- LinkedList(const LinkedList& other): head(nullptr), size(0)
+ LinkedList(const LinkedList& other): head(nullptr), tail(nullptr), size(0)
  {
-    if (other.head == nullptr) {
-       head == nullptr;
-       return;
-    }
-
-    if (other.head != nullptr) {
-        Node* currentOther = other.head;
-        Node* previousNew = nullptr;
-
-        while (currentOther != nullptr) {
-            Node* newNode = new Node(currentOther->data);
-            if (previousNew != nullptr) {
-                previousNew->next = newNode;
-                newNode->prev = previousNew;
-            } else {
-                head = newNode;
-            }
-            previousNew = newNode;
-            currentOther = currentOther->next;
+   if (other.head == nullptr) {
+            return;  
         }
-        size = other.size;
+
+        Node* ptr = other.head;  
+        do {
+            
+            push_back(ptr->data);
+            ptr = ptr->next;  
+        } while (ptr != other.head);  
+
+        size = other.size;  
     }
- }
 
 LinkedList(int numElements, double minValue, double maxValue, unsigned int seed = std::random_device{}()) 
         : head(nullptr), tail(nullptr), size(0) {
@@ -67,14 +57,17 @@ LinkedList(int numElements, double minValue, double maxValue, unsigned int seed 
 
 ~LinkedList()
 {
-
+  if(head==nullptr) return;
+  while (head != nullptr) {
+        pop_head();
+    }
 }
 
 LinkedList& operator=(const LinkedList& other)
 {
      if (this != &other) {
-            this->~LinkedList(); // уничтожаем текущий список
-            new (this) LinkedList(other); // инициализируем новым копированием
+            this->~LinkedList(); 
+            new (this) LinkedList(other); 
         }
         return *this;
 }
@@ -200,11 +193,11 @@ void delete_node(const T& value) {
                     Node<T>* nextNode = ptr->next;
                     prevNode->next = nextNode;  
                     nextNode->prev = prevNode;  
-                    delete ptr;  // Удаляем узел
-                    size--;  // Уменьшаем размер списка
+                    delete ptr;  
+                    size--;  
                 }
             }
-            ptr = nextNode;  // Переходим к следующему узлу
+            ptr = nextNode;  
                 }
     }while(ptr!=first); 
 
@@ -231,4 +224,54 @@ const T& operator [] (int index) const
     }
     return ptr->data;
 }
+
+friend std::ostream& operator<< (std::ostream& stream, const LinkedList<T>& list)
+{
+    if (list.head == nullptr) {
+        stream << "()"; \
+        return stream;
+    }
+    Node<T>* ptr = list.head;
+    stream << "("; 
+    do{
+        stream<<ptr->list.data;
+        ptr = ptr->next;
+        if (ptr != list.head) {
+            stream << ", "; 
+        }
+    }while(ptr!=list.head);
+
+    stream << ")"; 
+    return stream;
+}
 }; 
+
+template<typename T>
+void reverse(LinkedList<T>& list) {
+    if (list.head == nullptr) return; 
+
+    Node<T>* ptr = list.head;
+    Node<T>* temp = nullptr;
+
+    
+    do {
+        temp = ptr->prev; 
+        ptr->prev = ptr->next; 
+        ptr->next = temp; 
+        ptr = ptr->prev; 
+    } while (ptr != list.head); 
+
+    
+    temp = list.head; 
+    list.head = list.tail; 
+    list.tail = temp; 
+}
+
+int main()
+{
+    setlocale(LC_ALL, "ru");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    LinkedList<int> a(1,2,3);
+}
